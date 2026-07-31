@@ -3,24 +3,22 @@ const generateBtn = document.getElementById("generateBtn");
 const downloadBtn = document.getElementById("downloadBtn");
 const qrBox = document.getElementById("qrBox");
 
-let qrCreated = false;
-
 
 generateBtn.addEventListener("click", function () {
 
-    let text = input.value.trim();
+    const text = input.value.trim();
 
-    if (text === "") {
-        alert("Please enter text or URL");
+    if (!text) {
+        alert("Enter text or URL");
         return;
     }
 
 
-    generateBtn.innerHTML = "Generating QR...";
+    generateBtn.innerText = "Generating...";
     generateBtn.disabled = true;
 
-    qrBox.innerHTML = "";
 
+    qrBox.innerHTML = "";
 
 
     setTimeout(() => {
@@ -30,9 +28,9 @@ generateBtn.addEventListener("click", function () {
 
             text: text,
 
-            width: 350,
+            width: 220,
 
-            height: 350,
+            height: 220,
 
             colorDark: "#000000",
 
@@ -43,66 +41,38 @@ generateBtn.addEventListener("click", function () {
         });
 
 
-
-        qrCreated = true;
-
+        generateBtn.innerText = "Generate QR";
+        generateBtn.disabled = false;
 
         downloadBtn.style.display = "inline-block";
 
 
-        generateBtn.innerHTML = "Generate QR";
-
-        generateBtn.disabled = false;
-
-
-    }, 1500);
-
+    }, 1000);
 
 
 });
 
 
 
-downloadBtn.addEventListener("click", function(){
+downloadBtn.addEventListener("click", function () {
 
 
-let canvas = qrBox.querySelector("canvas");
-let img = qrBox.querySelector("img");
+    const img = qrBox.querySelector("img");
 
 
-let url;
+    if (!img) {
+        alert("Generate QR first");
+        return;
+    }
 
 
-if(canvas){
+    const link = document.createElement("a");
 
-url = canvas.toDataURL("image/png");
+    link.href = img.src;
 
-}
+    link.download = "BD-QR-Code.png";
 
-else if(img){
-
-url = img.src;
-
-}
-
-else{
-
-alert("QR not found");
-
-return;
-
-}
-
-
-
-let a = document.createElement("a");
-
-a.href = url;
-
-a.download = "BD-QR-Code.png";
-
-a.click();
-
+    link.click();
 
 
 });
