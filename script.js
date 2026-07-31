@@ -6,11 +6,9 @@ const qrBox = document.getElementById("qrBox");
 let qrImage = null;
 
 
-// Generate QR
+generateBtn.addEventListener("click", () => {
 
-generateBtn.addEventListener("click", function(){
-
-    let text = input.value.trim();
+    const text = input.value.trim();
 
     if(text === ""){
         alert("Please enter text or URL");
@@ -21,48 +19,58 @@ generateBtn.addEventListener("click", function(){
     qrBox.innerHTML = "";
 
 
-    let qr = document.createElement("img");
+    const img = document.createElement("img");
 
-    qr.src =
-    "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data="
+    img.width = 250;
+    img.height = 250;
+
+    img.alt = "Generated QR Code";
+
+
+    img.src =
+    "https://api.qrserver.com/v1/create-qr-code/?size=500x500&data="
     + encodeURIComponent(text);
 
 
-    qr.alt = "QR Code";
+
+    qrBox.appendChild(img);
 
 
-    qrBox.appendChild(qr);
-
-
-    qrImage = qr;
+    qrImage = img;
 
 
     downloadBtn.style.display = "block";
+
 
 });
 
 
 
-// Download QR
+downloadBtn.addEventListener("click", () => {
 
-downloadBtn.addEventListener("click", function(){
 
     if(!qrImage){
+
         alert("Generate QR first");
+
         return;
+
     }
 
 
-    let link = document.createElement("a");
+    const link = document.createElement("a");
+
 
     link.href = qrImage.src;
 
     link.download = "BD-QR-Code.png";
+
 
     document.body.appendChild(link);
 
     link.click();
 
     document.body.removeChild(link);
+
 
 });
