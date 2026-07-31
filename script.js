@@ -1,3 +1,4 @@
+alert("JS LOAD HO GYA");
 const input = document.getElementById("qrText");
 const generateBtn = document.getElementById("generateBtn");
 const downloadBtn = document.getElementById("downloadBtn");
