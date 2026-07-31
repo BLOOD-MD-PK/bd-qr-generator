@@ -1,87 +1,88 @@
 const input = document.getElementById("qrText");
+
 const generateBtn = document.getElementById("generateBtn");
+
 const downloadBtn = document.getElementById("downloadBtn");
+
 const qrBox = document.getElementById("qrBox");
 
-let qrCanvas = null;
 
 
-// Generate QR Code
-
-generateBtn.addEventListener("click", function () {
-
-    const text = input.value.trim();
+generateBtn.addEventListener("click", function(){
 
 
-    if (text === "") {
-        alert("Please enter text or URL");
-        return;
-    }
+let text = input.value.trim();
 
 
-    qrBox.innerHTML = "";
+
+if(text === ""){
+
+alert("Please enter text or URL");
+
+return;
+
+}
 
 
-    const canvas = document.createElement("canvas");
 
-    qrBox.appendChild(canvas);
-
-
-    QRCode.toCanvas(
-        canvas,
-        text,
-        {
-            width: 300,
-            margin: 2
-        },
-        function (error) {
-
-            if (error) {
-
-                console.error(error);
-                alert("QR generation failed");
-
-                return;
-            }
-
-        }
-    );
+qrBox.innerHTML = "";
 
 
-    qrCanvas = canvas;
+
+new QRCode(qrBox, {
+
+text: text,
+
+width: 300,
+
+height: 300,
+
+colorDark: "#000000",
+
+colorLight: "#ffffff"
+
+});
 
 
-    downloadBtn.style.display = "block";
+
+downloadBtn.style.display = "block";
+
 
 
 });
 
 
 
-// Download QR
 
-downloadBtn.addEventListener("click", function () {
-
-
-    if (!qrCanvas) {
-
-        alert("Generate QR first");
-
-        return;
-
-    }
+downloadBtn.addEventListener("click", function(){
 
 
-    const link = document.createElement("a");
+
+let qrImage = qrBox.querySelector("img");
 
 
-    link.download = "BD-QR-Code.png";
+
+if(!qrImage){
+
+alert("Generate QR first");
+
+return;
+
+}
 
 
-    link.href = qrCanvas.toDataURL("image/png");
+
+let link = document.createElement("a");
 
 
-    link.click();
+link.href = qrImage.src;
+
+
+link.download = "BD-QR-Code.png";
+
+
+link.click();
+
 
 
 });
