@@ -8,42 +8,44 @@ generateBtn.onclick = function(){
 
     let text = input.value.trim();
 
-    if(!text){
+
+    if(text === ""){
         alert("Enter text or URL");
         return;
     }
 
 
     generateBtn.innerText = "Generating...";
+    generateBtn.disabled = true;
 
 
     qrBox.innerHTML = "";
 
 
-    let canvas = document.createElement("canvas");
+    setTimeout(function(){
 
 
-    QRCode.toCanvas(canvas, text, {
-        width: 250,
-        margin: 4,
-        errorCorrectionLevel: "H"
-    }, function(error){
+        new QRCode(qrBox, {
 
-        if(error){
-            console.log(error);
-            alert("QR Error");
-            generateBtn.innerText = "Generate QR";
-            return;
-        }
+            text: text,
+
+            width: 250,
+
+            height: 250,
+
+            correctLevel: QRCode.CorrectLevel.H
+
+        });
 
 
-        qrBox.appendChild(canvas);
+        downloadBtn.style.display = "inline-block";
 
-        downloadBtn.style.display="inline-block";
 
-        generateBtn.innerText="Generate QR";
+        generateBtn.innerText = "Generate QR";
+        generateBtn.disabled = false;
 
-    });
+
+    },1000);
 
 
 };
@@ -52,20 +54,22 @@ generateBtn.onclick = function(){
 
 downloadBtn.onclick=function(){
 
-    let canvas = qrBox.querySelector("canvas");
+    let img = qrBox.querySelector("img");
 
-    if(!canvas){
+
+    if(!img){
         alert("Generate QR first");
         return;
     }
 
 
-    let link=document.createElement("a");
+    let a=document.createElement("a");
 
-    link.download="BD-QR-Code.png";
+    a.href=img.src;
 
-    link.href=canvas.toDataURL("image/png");
+    a.download="BD-QR-Code.png";
 
-    link.click();
+    a.click();
+
 
 };
