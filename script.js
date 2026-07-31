@@ -3,14 +3,13 @@ const generateBtn = document.getElementById("generateBtn");
 const downloadBtn = document.getElementById("downloadBtn");
 const qrBox = document.getElementById("qrBox");
 
-let qrGenerated = false;
+
+generateBtn.onclick = async function(){
+
+    let text = input.value.trim();
 
 
-generateBtn.addEventListener("click", function () {
-
-    const text = input.value.trim();
-
-    if (!text) {
+    if(!text){
         alert("Enter text or URL");
         return;
     }
@@ -23,76 +22,56 @@ generateBtn.addEventListener("click", function () {
     qrBox.innerHTML = "";
 
 
-    setTimeout(() => {
-
-        new QRCode(qrBox, {
-            text: text,
-            width: 220,
-            height: 220,
-            correctLevel: QRCode.CorrectLevel.H
-        });
+    let canvas = document.createElement("canvas");
 
 
-        qrGenerated = true;
-
-        downloadBtn.style.display = "inline-block";
-
-        generateBtn.innerText = "Generate QR";
-        generateBtn.disabled = false;
-
-
-    }, 1000);
-
-
-});
+    await QRCode.toCanvas(
+        canvas,
+        text,
+        {
+            width: 250,
+            margin: 4,
+            errorCorrectionLevel: "H"
+        }
+    );
 
 
+    qrBox.appendChild(canvas);
 
-downloadBtn.addEventListener("click", function () {
+
+    downloadBtn.style.display = "inline-block";
 
 
-    if (!qrGenerated) {
+    generateBtn.innerText = "Generate QR";
+    generateBtn.disabled = false;
+
+
+};
+
+
+
+downloadBtn.onclick = function(){
+
+
+    let canvas = qrBox.querySelector("canvas");
+
+
+    if(!canvas){
         alert("Generate QR first");
         return;
     }
 
 
-    let canvas = qrBox.querySelector("canvas");
-    let image = qrBox.querySelector("img");
+    let link = document.createElement("a");
 
 
-    let downloadURL;
+    link.download = "BD-QR-Code.png";
 
 
-    if (canvas) {
-
-        downloadURL = canvas.toDataURL("image/png");
-
-    } 
-    else if (image) {
-
-        downloadURL = image.src;
-
-    }
-    else {
-
-        alert("QR image not found");
-        return;
-
-    }
+    link.href = canvas.toDataURL("image/png");
 
 
-    let a = document.createElement("a");
-
-    a.href = downloadURL;
-
-    a.download = "BD-QR-Code.png";
-
-    document.body.appendChild(a);
-
-    a.click();
-
-    document.body.removeChild(a);
+    link.click();
 
 
-});
+};
