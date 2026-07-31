@@ -3,18 +3,21 @@
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>BD QR Generator - Free QR Code Generator</title>
+    <title>BD QR Generator - Create QR Codes Online</title>
 
-<meta name="description" content="Generate QR codes online for free with BD QR Generator.">
+    <meta name="description" content="Generate QR codes instantly for text, links and more.">
+
+    <link rel="icon" href="assets/favicon.ico">
+
+    <link rel="stylesheet" href="style.css">
 
 
-<link rel="icon" href="assets/favicon.ico">
-
-<link rel="stylesheet" href="style.css">
+    <!-- QR Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode/1.5.3/qrcode.min.js"></script>
 
 </head>
 
@@ -24,138 +27,114 @@
 
 <header>
 
-<div class="logo">
+    <div class="logo">
 
-<img src="assets/logo.png" alt="BD QR Generator">
+        <img src="assets/logo.png" alt="BD QR Generator Logo">
 
-<h1>BD QR Generator</h1>
+        <h1>BD QR Generator</h1>
 
-</div>
+    </div>
 
 
-<p>Create QR Codes Instantly</p>
-
+    <p>Create your QR code instantly</p>
 
 </header>
 
 
 
-<!-- Top Ad -->
-
-<div class="ad-box">
-
-Advertisement
-
-</div>
+<div class="container">
 
 
-
-<main class="container">
-
-
-<div class="tool-box">
-
-
-<h2>QR Code Generator</h2>
-
-
-<p>Enter text or URL to create your QR code</p>
+    <!-- Ad Placeholder -->
+    <div class="ad-box">
+        Advertisement
+    </div>
 
 
 
-<input 
-type="text"
-id="qrText"
-placeholder="Enter text or URL">
+    <section class="tool-box">
+
+
+        <h2>QR Code Generator</h2>
+
+
+        <input 
+        type="text" 
+        id="qrText"
+        placeholder="Enter text or URL">
+
+
+        <button id="generateBtn">
+            Generate QR
+        </button>
 
 
 
-<button id="generateBtn">
-
-Generate QR
-
-</button>
+        <div id="qrBox"></div>
 
 
 
-<div id="qrBox">
+        <button 
+        id="downloadBtn"
+        style="display:none;">
 
-</div>
+            Download QR
 
-
-
-<button id="downloadBtn" style="display:none;">
-
-Download QR
-
-</button>
+        </button>
 
 
-
-</div>
-
-
-
-<!-- Middle Ad -->
-
-<div class="ad-box">
-
-Advertisement
-
-</div>
+    </section>
 
 
 
 
-<div class="features">
+    <!-- Ad Placeholder -->
+    <div class="ad-box">
+        Advertisement
+    </div>
 
 
-<h2>Features</h2>
 
 
-<div>
-
-<h3>Text QR</h3>
-
-<p>Create QR from any text.</p>
-
-</div>
+    <section class="features">
 
 
-<div>
-
-<h3>Website QR</h3>
-
-<p>Convert links into QR codes.</p>
-
-</div>
+        <h2>Features</h2>
 
 
-<div>
+        <div>
+            ✅ Fast QR Generation
+        </div>
 
-<h3>Image QR</h3>
 
-<p>More QR tools coming soon.</p>
+        <div>
+            ✅ High Quality QR Code
+        </div>
 
-</div>
+
+        <div>
+            ✅ Free To Use
+        </div>
+
+
+        <div>
+            ✅ Download PNG QR
+        </div>
+
+
+    </section>
+
+
+
+
+    <!-- Ad Placeholder -->
+    <div class="ad-box">
+        Advertisement
+    </div>
 
 
 
 </div>
-
-
-
-<!-- Bottom Ad -->
-
-<div class="ad-box">
-
-Advertisement
-
-</div>
-
-
-
-</main>
 
 
 
@@ -163,17 +142,24 @@ Advertisement
 <footer>
 
 
-<p>
-© 2026 BD QR Generator
-</p>
+    <p>
+        © 2026 BD QR Generator
+    </p>
 
 
-<a href="about.html">About</a> |
+    <a href="about.html">
+        About
+    </a>
 
-<a href="privacy.html">Privacy</a> |
 
-<a href="contact.html">Contact</a>
+    <a href="privacy.html">
+        Privacy
+    </a>
 
+
+    <a href="contact.html">
+        Contact
+    </a>
 
 
 </footer>
@@ -181,10 +167,7 @@ Advertisement
 
 
 
-<script src="libs/qrcode.min.js"></script>
-
 <script src="script.js"></script>
-
 
 
 </body>
