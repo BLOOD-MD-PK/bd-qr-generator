@@ -1,88 +1,96 @@
 const input = document.getElementById("qrText");
-
 const generateBtn = document.getElementById("generateBtn");
-
 const downloadBtn = document.getElementById("downloadBtn");
-
 const qrBox = document.getElementById("qrBox");
 
+let qrCreated = false;
 
 
-generateBtn.addEventListener("click", function(){
+generateBtn.addEventListener("click", function () {
+
+    let text = input.value.trim();
+
+    if (text === "") {
+        alert("Please enter text or URL");
+        return;
+    }
 
 
-let text = input.value.trim();
+    // Loading start
+    generateBtn.innerHTML = "Generating...";
+    generateBtn.disabled = true;
 
 
-
-if(text === ""){
-
-alert("Please enter text or URL");
-
-return;
-
-}
+    qrBox.innerHTML = "";
 
 
+    setTimeout(() => {
 
-qrBox.innerHTML = "";
+        new QRCode(qrBox, {
+            text: text,
+            width: 300,
+            height: 300,
+            colorDark: "#000000",
+            colorLight: "#ffffff"
+        });
 
 
+        qrCreated = true;
 
-new QRCode(qrBox, {
+        downloadBtn.style.display = "inline-block";
 
-text: text,
 
-width: 300,
+        // Loading end
+        generateBtn.innerHTML = "Generate QR";
+        generateBtn.disabled = false;
 
-height: 300,
 
-colorDark: "#000000",
+    }, 500);
 
-colorLight: "#ffffff"
 
 });
 
 
 
-downloadBtn.style.display = "block";
+downloadBtn.addEventListener("click", function () {
 
 
-
-});
-
-
-
-
-downloadBtn.addEventListener("click", function(){
+    if (!qrCreated) {
+        alert("Generate QR first");
+        return;
+    }
 
 
-
-let qrImage = qrBox.querySelector("img");
-
-
-
-if(!qrImage){
-
-alert("Generate QR first");
-
-return;
-
-}
+    let canvas = qrBox.querySelector("canvas");
+    let img = qrBox.querySelector("img");
 
 
-
-let link = document.createElement("a");
-
-
-link.href = qrImage.src;
+    let url;
 
 
-link.download = "BD-QR-Code.png";
+    if (canvas) {
+        url = canvas.toDataURL("image/png");
+    } 
+    else if (img) {
+        url = img.src;
+    }
+    else {
+        alert("QR not found");
+        return;
+    }
 
 
-link.click();
+    let link = document.createElement("a");
 
+    link.href = url;
+
+    link.download = "BD-QR-Code.png";
+
+    document.body.appendChild(link);
+
+    link.click();
+
+    document.body.removeChild(link);
 
 
 });
